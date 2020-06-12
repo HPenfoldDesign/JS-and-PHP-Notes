@@ -82,58 +82,6 @@ console.log(Array.isArray(fruits));
 console.log(fruits.indexOf('oranges'));
 
 
-
-// OBJECT LITERALS------------------------------------------------------------------------------------------
-const person = {
-  firstName: 'John',
-  lastName: 'Doe',
-  age: 30,
-  hobbies: ['music', 'movies', 'sports'],
-  address: {
-    street: '50 Main st',
-    city: 'Boston',
-    state: 'MA'
-  }
-}
-
-// Get single value
-console.log(person.name)
-
-// Get array value
-console.log(person.hobbies[1]);
-
-// Get embedded object
-console.log(person.address.city);
-
-// Add property
-person.email = 'jdoe@gmail.com';
-
-// Array of objects
-const todos = [
-  {
-    id: 1,
-    text: 'Take out trash',
-    isComplete: false
-  },
-  {
-    id: 2,
-    text: 'Dinner with wife',
-    isComplete: false
-  },
-  {
-    id: 3,
-    text: 'Meeting with boss',
-    isComplete: true
-  }
-];
-
-// Get specific object value
-console.log(todos[1].text);
-
-// Format as JSON
-console.log(JSON.stringify(todos));
-
-
 // LOOPS--------------------------------------------------------------------------------------------------
 
 // For
@@ -141,19 +89,78 @@ for(let i = 0; i <= 10; i++){
   console.log(`For Loop Number: ${i}`);
 }
 
+
+for(let i = 0; i <= 10; i++){
+  console.log(i);
+}
+//----------------------Looping through objects keys--------------------------------------------------------
+
+let person1 = {
+  name: 'Mark Johnson',
+  height: 1.63, 
+  weight: 90,
+  bmiMark: function(){
+      this.bmiMark = this.weight / (this.height * this.height); 
+  }
+}
+
+let keys = Object.keys(person1); 
+
+for (let i = 0; i < keys; i++){
+console.log(keys[i]);
+
+//looping through object only counting certain types of data (in this case a string)-------------------------------------------------
+
+const fruits = ['apples', 3 , 'oranges', 'pears', 2 , 'grapes'];
+
+for (let i = 0; i < fruits.length; i++){
+  if (typeof fruits[i] !== 'string') continue; //if your if startement is asking one query you can miss out the curly brackets.
+
+console.log(fruits[i]);
+}
+
+//Reads through array until another datatype comes up.-------------------------------------------------
+
+const fruits = [1 , 2 , 3, 'pears', 4 , 5];
+
+for (let i = 0; i < fruits.length; i++){
+  if (typeof fruits[i] !== 'number') break;
+
+console.log(fruits[i]);
+}
+
+//read through an array backwards------------------------------------------------------------------------
+
+const fruits = [ 1, 2, 3, 4, 5];
+
+for (let i = fruits.length -1; i >= 0; i--) {
+
+console.log(fruits[i]);
+}
+
+//-------------------------------------------------------------------------------------------------------
+
 // While
-let i = 0
+let i = 0;
 while(i <= 10) {
-  console.log(`While Loop Number: ${i}`);
+  console.log(i);
   i++;
 }
 
+//-----------------------------------------------------------------------------------------------------------
 // Loop Through Arrays
 // For Loop
+
 for(let i = 0; i < todos.length; i++){
   console.log(` Todo ${i + 1}: ${todos[i].text}`);
 }
 
+for(let i = 0; i < todos.length; i++){
+  console.log(Todo[i]);
+}
+
+
+//-----------------------------------------------------------------------------------------------------------
 // For...of Loop
 for(let todo of todos) {
   console.log(todo.text);
@@ -213,68 +220,173 @@ const z = color === 'red' ? 10 : 20;
 
 
 // FUNCTIONS--------------------------------------------------------------------------------------
+
+//function statements:  statements perform actions(if/else, while, switches etc.) but dont produce any immidiate results.
+//function expressions: produces an immediate result from some values, should be written whenever js expects a value. (written below)
+
 function greet(greeting = 'Hello', name) {
   if(!name) {
-    // console.log(greeting);
+     console.log(greeting);
     return greeting;
   } else {
-    // console.log(`${greeting} ${name}`);
+     console.log(`${greeting} ${name}`);
     return `${greeting} ${name}`;
   }
 }
 
+// Assigning a function to a variable--------------------------------------------------------------
+
+let profession = function(firstName, job) {
+  switch(job){
+    case 'electrician':
+      return firstName + ' is an electrican';
+    case 'Salesman':
+      return firstName + ' is an salesman';
+    case 'Developer':   
+      return firstName + ' is an developer';
+    default:
+      return firstName + ' does something else';  
+  }
+}
+
+console.log(profession('Andy','electrician'));
+console.log(profession('Jim','Salesmen'));
+console.log(profession('Harry','Developer'));
+console.log(profession('Craig'));
+
+//Functions passing in other functions--------------------------------------------------------------
+
+function calculateAge(birthYear) {
+	return 2020 - birthYear;
+}
+
+calculateAge(1989); //returns 31
+
+//Call a function inside of another function
+
+function yearsUntilRetirement(year, firstName) {
+    let age = calculateAge(year); //The function call calculates the age of someone based on birth date.
+    let retirement = 65 - age;
+    alert(firstName + ' retires in ' + retirement + ' years.');
+}
+
+yearsUntilRetirement(1989, 'Harry');
+
+//Passing in other functions and conditionals-----------------------------------------------------
+
+
+function calculateAge(birthYear) {
+	return 2020 - birthYear;
+}
+
+calculateAge(1989); //returns 31
+
+//Call a function inside of another function------------------------------------------------------------
+
+function yearsUntilRetirement(year, firstName) {
+	let age = calculateAge(year);
+    let retirement = 65 - age;
+    
+    if(retirement > 0) {
+		alert(firstName + ' retires in ' + retirement + ' years.');
+	} else {
+	alert(firstName + ' is retired.');
+	}
+    
+}
+
+yearsUntilRetirement(1989, 'Harry');
+yearsUntilRetirement(1932, 'James');
+yearsUntilRetirement(1999, 'Jeff');
+
+//functions returning other functions.-------------------------------------------------------------------
+
+function interviewQuestion(job) {
+  if (job === 'designer') {
+      return function(name) {
+          console.log(name + ', can you please explain what UX design is?')
+      }
+  } else if(job === 'teacher') {
+      return function(name) {
+          console.log(name + ', What subject do you teach?');
+      }
+  } else {
+      return function(name) {
+          console.log('hello' + name + ', what do you do?')
+      }
+  }
+}
+
+// let teacherQuestion = interviewQuestion('teacher');
+// teacherQuestion('john');
+
+//you can also call it right away like this 
+
+let teacherQuestion = interviewQuestion('teacher')('john');
+
+
+//IIFE - immediately invoked function expressions.---------------------------------------------------------------------
+
+// without IIFE you could create a function like: 
+
+function game() {
+  var score = Math.random() * 10;
+  console.log(score >= 5);
+}
+
+game();
+
+//With IIFE
+//by wrapping a function in parethesis you trick the parser into believing this is an expression, not as a declaration.
+
+//remember a function declaration is a function on its own, where as a function expression is a function written inside of another function or variable.
+//with declarative functions they are hoisted meaning they can be called in the page before the command is written.
+
+(function () {
+  var score = Math.random() * 10;
+  console.log(score >= 5);
+})();
+
+//Closures example (refer to explanation of closures further down) ----------------------------------------------------------------------------------------------------------------------
+
+function retirement (retirementAge) {
+  var a = ' years until retirement.';
+  return function(yearOfBirth) {
+      let age = 2016 - yearOfBirth;
+      console.log((retirementAge - age) + a);
+  }
+}
+
+// let retirementUS = retirement(66);
+// retirementUS(1990);
+
+retirement(65)(1989); //calls both functions together, with the inner function refering to the outer functions arguements.
+
+
+//another example:
+
+
+function interviewQuestion(job) {
+  return function(name) {
+      if (job === 'designer') {
+          console.log(name + ', What kind of design do you teach?');
+      } else if (job === 'developer') {
+          console.log(name + ', Do you build phone apps as well as online applications?');
+      } else {
+          console.log('Hello, ' + name + ', What kind ofwork do you do?')
+      }
+  } 
+}
+
+interviewQuestion('designer')('Harry');
+interviewQuestion('developer')('Harry');
 
 // ARROW FUNCTIONS--------------------------------------------------------------------------------
+
 const greet = (greeting = 'Hello', name = 'There') => `${greeting} ${name}`;
 console.log(greet('Hi'));
 
-
-// BRIEF OOP explaination--------------------------------------------------------------------------------------
-
-// Constructor Function
-function Person(firstName, lastName, dob) {
-  // Set object properties
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.dob = new Date(dob); // Set to actual date object using Date constructor
-  // this.getBirthYear = function(){
-  //   return this.dob.getFullYear();
-  // }
-  // this.getFullName = function() {
-  //   return `${this.firstName} ${this.lastName}`
-  // }
-}
-
-// Get Birth Year
-Person.prototype.getBirthYear = function () {
-  return this.dob.getFullYear();
-}
-
-// Get Full Name
-Person.prototype.getFullName = function() {
-  return `${this.firstName} ${this.lastName}`
-}
-
-
-// Instantiate an object from the class
-const person1 = new Person('John', 'Doe', '7-8-80');
-const person2 = new Person('Steve', 'Smith', '8-2-90');
-
-console.log(person2);
-
-// console.log(person1.getBirthYear());
-// console.log(person1.getFullName());
-
-
-
-// Built in constructors
-const name = new String('Kevin');
-console.log(typeof name); // Shows 'Object'
-const num = new Number(5);
-console.log(typeof num); // Shows 'Object'
-
-
-// ES6 CLASSES----------------------------------------------------------------------
+// ES6 CLASSES--------------------------------------------------------------------------------------
 class Person {
   constructor(firstName, lastName, dob) {
     this.firstName = firstName;
@@ -381,153 +493,277 @@ function onSubmit(e) {
     emailInput.value = '';
   }
 }
+//OBJECTS---------------------------------------------------------------------------------------------------
+// Object Literals----------------------------
 
-// OBJECT ORIENTATED PROGRAMMING ------------------------------------
+//PROPERTIES - are the key in the key value pair e.g hair: 'green', hair is the property.
 
-// Functions inside of Objects are called methods. 
- 
-
-// Object Literals-------------------------------------------------- 
-
-//backticks in the function are a feature of ES5
-
-const book1 = {
-  title: 'book one',
-  author: 'John Doe', 
-  year: '2013'
-  getSummary: function() {
-    return `${this.title} was written by ${this.author} in ${this.year} `; 
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+  age: 30,
+  hobbies: ['music', 'movies', 'sports'],
+  address: {
+    street: '50 Main st',
+    city: 'Boston',
+    state: 'MA'
   }
-} 
-console.log(book1.getSummary());// This will display "book one was written by John Doe in 2013"
-
-// Constructor functions (ES5)---------------------------------------
-
-function book(title, author, year){
-  this.title = title; 
-  this.author = author; 
-  this.year = year;
 }
-const book1 = new book('book one', 'John Doe', '2013');
-const book2 = new book('book two', 'Jane Doe', '2016');
 
-console.log(book1); // will come up with all details from book1.
+// Get single value
+console.log(person.name)
 
-//prototypes ---------------------------------------------------
+// Get array value
+console.log(person.hobbies[1]);
 
-//getSummary
-book.prototype.getSummary = function() {
-  return `${this.title} was written by ${this.author}
-  in $(this.year)`;
-}; 
+// Get embedded object
+console.log(person.address.city);
 
-// getAge
-book.prototype.getAge = function() {
-const years = new Date().getFullYear() - this.year;
-return `${this.title} is ${years} years old`;
+// Add a key value pair
+person.email = 'jdoe@gmail.com';
+
+// Array of objects
+const todos = [
+  {
+    id: 1,
+    text: 'Take out trash',
+    isComplete: false
+  },
+  {
+    id: 2,
+    text: 'Dinner with wife',
+    isComplete: false
+  },
+  {
+    id: 3,
+    text: 'Meeting with boss',
+    isComplete: true
+  }
+];
+
+// Get specific object value
+console.log(todos[1].text);
+
+// Format as JSON
+console.log(JSON.stringify(todos));
+
+
+//METHODS - are functions made inside of objects to modify that particular object. see Method below:
+
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+  age: 30,
+  newAge: function(age) {
+    return 2020 - age;
+  }
 };
 
-//Revise / change Year
-book.prototype.revise = function(newYear){
-  this.year = newYear;
-  this.revised = true;
-}
-const book1 = new book('book one', 'John Doe', '2013');
-const book1 = new book('book two', 'Jane Doe', '2016');
+alert(person.newAge(1992));
 
-console.log(book2); 
-book2.revise('2018');
-console.log(book2); //will come back as book 2 being made in 2018 under 'year'.
+//THIS keyword. This in this context is uses to select that age inside of that object.
 
-// prototype Inheritanace ------------------------------
-
-function book(title, author, year){
-  this.title = title; 
-  this.author = author; 
-  this.year = year;
-}
-
-book.prototype.getSummary = function() {
-  return `${this.title} was written by ${this.author}
-  in ${this.year}`;
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+  age: 1992,
+  newAge: function(age) {
+    return 2020 - this.age;
+  }
 };
 
-  //Magazine constructor (inheritance part) 
+alert(person.newAge());
 
-  function Magazine(title, author, year, month) {
-    book.call(this, title, author, year);
+//creating a new key value pair (property) using this keywork and a method.
 
-  this.month = month;
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+  birthYear: 1997,
+  newAge: function() {
+    this.age = 2020 - this.birthYear;
   }
+};
 
-  //inheritance part 
+person.newAge(); // dont forget to call the function.
+console.log(person);
 
-  Magazine.prototype = Object.create(book.prototype);
+//---------------------CALL, BIND AND APPLY-------------------------------------------
 
-  const mag1 = new Magazine('Mag one', 'John Doe', '2018', 'Jan');
+var john = {
+  name: 'john',
+  age: 26, 
+  job: 'teacher',
+  presentation: function(style, timeOfDay) {
+      if (style === 'formal') {
+          console.log('Good ' + timeOfDay +', ladies and gentlemen. I\'m ' + this.name + ', I\'m ' + this.age + ' and I work as a ' + this.job +'.');
 
-  console.log(mag1);
-
-  // Object.create method------------------------------------------ 
-
-  //object of prototypes 
-
-  const bookprotos = {
-    getSummary: function() {
-      return `${this.title} was written by ${this.author}
-      in ${this.year}`;
-    }, 
-
-    getAge: function() {
-      const years = new Date().getFullYear() - this.year;
-      return `${this.title} is ${years} years old`;
-    }
-  } 
-  // object creation  
-  // Either of the belwo can be used:
-
-  const book1 = Object.create(bookprotos);
-    this.title = 'book1'; 
-    this.author = 'John Doe'; 
-    this.year = '2013';
-  
-  const book1 = Object.create(bookprotos, {
-    title: { value: 'book one' } 
-    author: { value: 'John Doe' }
-    year: { value: '2013' }
-  });
-    
-  console.log(book1);
-  
-  
-// getter method------------------------------------------------
-
-  get activity () {
-    const today = new Date();
-    const hour = today.getHours();
-    
-    if ( hour > 8 && hour <= 20) {
-    return 'playing';
-  } else {
-    return 'sleeping';
-    }
+      } else if (style === 'friendly') {
+          console.log(timeOfDay + ', guys and girls. I\'m ' + this.name + ', I\'m ' + this.age + ' and I work as a ' + this.job +'.');
+      }
   }
+};
 
-// setter method ---------------------------------------------
-// On occasion setters require getters to function properly.  
+var emily = {
+  name: 'Emily', 
+  age: 35, 
+  job: 'designer'
+};
+
+john.presentation('formal', 'morning');
+john.presentation.call(emily,'friendly', 'good morning'); //calling emilys details from here object to use with the presentation method.
+
+var johnFriendly = john.presentation.bind(john, 'friendly'); //bind creates a function stored in a variable using the arguements of the object name amd if perameters.
+johnFriendly('morning'); // calling the johnFriendly function stored in a variable with the timeOfDay function called together.
 
 
-get owner() {
-    return this._owner;
+
+// john.presentation.apply(emily, ['friendly', 'good afternoon']); //This wouldnt work as the presentation method isnt expecting an array of items as input. 
+
+//another example of the apply
+
+const numbers = [5, 6, 2, 3, 7];
+
+const max = Math.max.apply(null, numbers);
+
+console.log(max);
+// expected output: 7
+
+const min = Math.min.apply(null, numbers);
+
+console.log(min);
+// expected output: 2
+
+
+//----------PROTOTYPES AND CONSTRUCTOR FUNCTIONS--------------------------------------------------------------------------------------------------
+
+//object literal - compare it with constructor function below.
+
+let john = {
+  name: 'John',
+  yearOfBirth: 1990,
+  job: 'teacher',
+  calculateAge: function() {
+      console.log(2020 - this.yearOfBirth);
   }
+};
 
-  set owner() {
-    this._owner = owner;
-    console.log(`setter called: ${owner}`);
+//function object constructor (blueprint for creating object)
+
+let Person = function(name, yearOfBirth, job) {
+  this.name = name;
+  this.yearOfBirth = yearOfBirth;
+  this.job = job;
+  this.calculateAge = function() {
+      console.log(2020 - this.yearOfBirth);
   }
+};
 
-  ernie.owner = 'Ashley';
-  console.log(ernie.owner);
+
+/* you can even attach methods to your objects in prototypes
+in the global scope this way.*/
+
+Person.prototype.calculateAge = function() {
+          console.log(2020 - this.yearOfBirth);
+      }
+
+//creating the new object using person is called instantiation.
+// the 'new' operator creates a new empty object
+
+let John = new Person('John', 1990, 'teacher');
+let Harry = new Person('Harry', 1989, 'designer');
+let Phil = new Person('Phil', 1964, 'manager');
+
+Harry.calculateAge();
+John.calculateAge();
+Phil.calculateAge();
+
+//this will add lastName property to all objects.
+Person.prototype.lastName = "smith";
+
+
+//Another way to make a constructor using Object.create (least popular method)
+
+let PersonProto = {
+  calculateAge: function() {
+      console.log(2020 - this.yearOfBirth);
+  }
+};
+
+let John = Object.create(PersonProto);
+John.name ='John';
+John.yearOfBirth = 1990;
+John.Job = 'teacher';
+
+//OR you can do:
+
+let Jane = Object.create(PersonProto,
+{
+  name: { value: 'Jane' },
+  yearOfBirth: { value: 1970 }, 
+  job: { value: 'designer' }
+});
+
+
+//EXECUTION CONTEXT--------------------------------------------
+
+/*Simply put, an execution context is an abstract concept of an environment where the Javascript code is evaluated and executed. Whenever any code is run in JavaScript, it’s run inside an execution context.
+Types of Execution Context
+There are three types of execution context in JavaScript.*/
+
+/*Global Execution Context — This is the default or base execution context. The code that is not inside any function is in the global execution context. It performs two things: 
+it creates a global object which is a window object (in the case of browsers) and sets the value of this to equal to the global object. There can only be one global execution context in a program.
+Functional Execution Context — Every time a function is invoked, a brand new execution context is created for that function. Each function has its own execution context, but it’s created when the function is invoked or called. 
+There can be any number of function execution contexts. Whenever a new execution context is created, it goes through a series of steps in a defined order which I will discuss later in this article.
+Eval Function Execution Context — Code executed inside an eval function also gets its own execution context, but as eval isn’t usually used by JavaScript developers, so I will not discuss it here.*/
+
+/*Execution Stack
+Execution stack, also known as “calling stack” in other programming languages, is a stack with a LIFO (Last in, First out) structure, which is used to store all the execution context created during the code execution.
+When the JavaScript engine first encounters your script, it creates a global execution context and pushes it to the current execution stack. Whenever the engine finds a function invocation, it creates a new execution context for that function and pushes it to the top of the stack.
+The engine executes the function whose execution context is at the top of the stack. When this function completes, its execution stack is popped off from the stack, and the control reaches to the context below it in the current stack. 
+ */
+
+// SCOPE-------------------------------------------------------
+  /* Is a way of dictating how accessible information is.
+  /* - In global scope all information is accessible including access from the local scope.
+     - In local scope which is inside functions and executables, information cant be accessed outside of it. E.g you cant reference a variable inside of local scope in global, but you can obviously call functions.
+
+// HOISTING----------------------------------------------------
+
+Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution. 
+Inevitably, this means that no matter where functions and variables are declared, they are moved to the top of their scope regardless of 
+whether their scope is global or local.
+
+// CLOSURES----------------------------------------------------
+
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, 
+a closure gives you access to an outer function’s scope from an inner function. In JavaScript, closures are created every time a function is created, at function 
+creation time. To use a closure, define a function inside another function and expose it. To expose a function, return it or pass it to another function.
+The inner function will have access to the variables in the outer function scope, even after the outer function has returned.
+
+//THIS. keyword------------------------------------------------
+
+this keyword refers to an object, that object which is executing the current bit of javascript code. In other words, every javascript function while executing has 
+a reference to its current execution context, called this. Execution context means here is how the function is called. To understand this keyword, only we need to know how, 
+when and from where the function is called, does not matter how and where function is declared or defined.
+
+In essence it reflects what context it is used in. In the example below the this keyword is used to pick the age key/ value pair.
+
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+  age: 30,
+  newAge: function(age) {
+    return 2020 - this.age;
+  }
+};
+
+You can even borrow the method from one object and use it on another like this: person.newage = anotherObject.newage.
+
+*/
+
+
+
 
 
   //---Building a basic toggle navigation in javascript
