@@ -330,7 +330,7 @@ let teacherQuestion = interviewQuestion('teacher')('john');
 // without IIFE you could create a function like: 
 
 function game() {
-  var score = Math.random() * 10;
+let score = Math.random() * 10;
   console.log(score >= 5);
 }
 
@@ -343,14 +343,14 @@ game();
 //with declarative functions they are hoisted meaning they can be called in the page before the command is written.
 
 (function () {
-  var score = Math.random() * 10;
+  let score = Math.random() * 10;
   console.log(score >= 5);
 })();
 
 //Closures example (refer to explanation of closures further down) ----------------------------------------------------------------------------------------------------------------------
 
 function retirement (retirementAge) {
-  var a = ' years until retirement.';
+  let a = ' years until retirement.';
   return function(yearOfBirth) {
       let age = 2016 - yearOfBirth;
       console.log((retirementAge - age) + a);
@@ -590,7 +590,7 @@ console.log(person);
 
 //---------------------CALL, BIND AND APPLY-------------------------------------------
 
-var john = {
+let john = {
   name: 'john',
   age: 26, 
   job: 'teacher',
@@ -604,7 +604,7 @@ var john = {
   }
 };
 
-var emily = {
+let emily = {
   name: 'Emily', 
   age: 35, 
   job: 'designer'
@@ -613,7 +613,7 @@ var emily = {
 john.presentation('formal', 'morning');
 john.presentation.call(emily,'friendly', 'good morning'); //calling emilys details from here object to use with the presentation method.
 
-var johnFriendly = john.presentation.bind(john, 'friendly'); //bind creates a function stored in a variable using the arguements of the object name amd if perameters.
+let johnFriendly = john.presentation.bind(john, 'friendly'); //bind creates a function stored in a variable using the arguements of the object name amd if perameters.
 johnFriendly('morning'); // calling the johnFriendly function stored in a variable with the timeOfDay function called together.
 
 
@@ -726,7 +726,7 @@ The engine executes the function whose execution context is at the top of the st
 // SCOPE-------------------------------------------------------
   /* Is a way of dictating how accessible information is.
   /* - In global scope all information is accessible including access from the local scope.
-     - In local scope which is inside functions and executables, information cant be accessed outside of it. E.g you cant reference a variable inside of local scope in global, but you can obviously call functions.
+     - In local scope which is inside functions and executables, information cant be accessed outside of it. E.g you cant reference a letiable inside of local scope in global, but you can obviously call functions.
 
 // HOISTING----------------------------------------------------
 
@@ -761,6 +761,48 @@ const person = {
 You can even borrow the method from one object and use it on another like this: person.newage = anotherObject.newage.
 
 */
+
+//Quiz console app
+
+(function() {   //All commands are wrapped in an IIFE to make the code isolated inside a function and therefor wont interfer if another developer were to add it into their code.
+
+  function Question( question, answers, correct) {
+      this.question = question;
+      this.answers = answers;
+      this.correct = correct; 
+  }
+  
+  Question.prototype.displayQuestion = function() {  //creating a method called displayQuestion to drop into the Question object.  
+      console.log(this.question);
+  
+      for (let i = 0; i < this.answers.length; i++) { // designed to console log the answers by looping through them
+          console.log(i + ': ' + this.answers[i]);
+      }
+  }
+  
+  Question.prototype.checkAnswer = function(ans) {
+      if (ans === this.correct) {
+          console.log('correct!')
+      } else {
+          console.log('incorrect, try again')
+      }
+  }
+  
+  let q1 = new Question('Is javascript the coolest programming language in the world?', ['yes', 'No'], 0);
+  let q2 = new Question('What is the name of the course\'s teacher?',['Mike', 'Jonas'], 1); 
+  let q3 = new Question('Who is the person learning Javascript?',['Dave', 'Harry', 'John'], 1);
+  
+  let questions = [q1, q2, q3];
+  
+  let n = Math.floor(Math.random() * questions.length);
+  
+  questions[n].displayQuestion();
+  
+  let answer = parseInt(prompt('Please select the correct answer.')); //When entering into a prompt box your answer is converted to a string rather than a number. ParseInt converts it back to number.
+  
+  questions[n].checkAnswer(answer);
+  
+  })();
 
 
 
@@ -809,5 +851,6 @@ let getRandomNumber = function(start, range) {
   }
   return getRandom;
   }
+
 
 console.log(getRandomNumber(1, 1000));
