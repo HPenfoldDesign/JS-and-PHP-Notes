@@ -805,7 +805,34 @@ You can even borrow the method from one object and use it on another like this: 
   })();
 
 
+// MODULATION -----------------------------------------------------------------------------------------------------
 
+/*This app shall be written with modulation. Modules work the same way as multiple folders inside a larger folder. You can link the data between these modules to create the full program.
+You could have a module which programs the UI, another module to program data like getting data or doing something mathematical with data, another for events etc. 
+Heres an example of modules below. They are written with IIFE's */
+
+/* If you tried to call the budgetController.add(5) it wouldnt work because its hidden inside the IIFE. by returning a function directly it makes it accessible.
+The value of a value also becomes b, so if you called the function budgetController.publicTest(5), that would work. This is how you enable modules to interact with one another.*/
+
+let budgetController = (function() {
+  let x = 23; 
+
+  let add = function (a) {
+     return x + a;
+  }
+
+  return {
+      publicTest: function (b) {
+          console.log(add(b));
+      }
+  }
+})();
+
+budgetController.publicTest(7)
+
+/* this would return 30 in the console*/
+
+/*---------------------------------------------------------------------------------------------------------------------------
 
 
   //---Building a basic toggle navigation in javascript
