@@ -13,6 +13,13 @@ let age = 30;
 // let can be re-assigned, const can not
 age = 31;
 
+//also both let and const are used in block scope, meaning they are only accessible inside their functions. Var has access to variables in and out of functions.
+//Const are constants meaning the data inside them cant be changed, only reasigned.
+
+const i = 1;
+i = 2 // will return error. 
+const i = 2 // will be reassigned to 2.
+
 /*Try and use const as your primary means of naming variables. It make your code more secure and robust. 
 Dont use let unless you know the variable is going to change its value*/
 
@@ -32,9 +39,9 @@ console.log(typeof z); // (undefined)
 
 // STRINGS-----------------------------------------------------------------------------------------------------
 
-// Concatenation
+// Concatenation(ES5 and older)
 console.log('My name is ' + name + ' and I am ' + age);
-// Template literal (better)
+// Template literal (ES6 plus)
 console.log(`My name is ${name} and I am ${age}`);
 
 // String methods & properties
@@ -49,7 +56,11 @@ val = s.toLowerCase();
 val = s.substring(0, 5);
 // Split into array
 val = s.split('');
-
+//tests if a string starts with a particuluar letter, ends with does the same thing to the last letter.
+val = s.startsWith('t');
+val = s.endsWith
+//tests if string has a space.
+val = s.includes(' ');
 
 
 // ARRAYS - Store multiple values in a variable---------------------------------------------------------------
@@ -106,8 +117,9 @@ let person1 = {
 
 let keys = Object.keys(person1); 
 
-for (let i = 0; i < keys; i++){
-console.log(keys[i]);
+for (let i = 0; i < keys; i++) {
+console.log(keys[i])
+};
 
 //looping through object only counting certain types of data (in this case a string)-------------------------------------------------
 
@@ -216,7 +228,6 @@ switch(color) {
 
 // Ternary operator / Shorthand if statement
 const z = color === 'red' ? 10 : 20;
-
 
 
 // FUNCTIONS--------------------------------------------------------------------------------------
@@ -382,6 +393,8 @@ interviewQuestion('designer')('Harry');
 interviewQuestion('developer')('Harry');
 
 // ARROW FUNCTIONS--------------------------------------------------------------------------------
+//Arrow functions are a quicker way of writing functions which are unnamed, unassigned to a variable, or are anonymous.
+//just they are written like so (arguements,) => {function instructions}.
 
 const greet = (greeting = 'Hello', name = 'There') => `${greeting} ${name}`;
 console.log(greet('Hi'));
@@ -741,6 +754,10 @@ a closure gives you access to an outer function’s scope from an inner function
 creation time. To use a closure, define a function inside another function and expose it. To expose a function, return it or pass it to another function.
 The inner function will have access to the variables in the outer function scope, even after the outer function has returned.
 
+// BUBBLING----------------------------------------------------
+
+When you an event on a parent element, all of of the children and sibling elements do the same thing unless instructed differently. This is known as bubbling.
+
 //THIS. keyword------------------------------------------------
 
 this keyword refers to an object, that object which is executing the current bit of javascript code. In other words, every javascript function while executing has 
@@ -832,6 +849,13 @@ budgetController.publicTest(7)
 
 /* this would return 30 in the console*/
 
+let UIController = (function() {
+})();
+
+let controller = (function() { 
+})(); 
+
+//Splitting your modules into different parts of the application, as in different modules to control different parts of the program is called seporation of concerns.
 /*---------------------------------------------------------------------------------------------------------------------------
 
 
