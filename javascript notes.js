@@ -399,6 +399,48 @@ interviewQuestion('developer')('Harry');
 const greet = (greeting = 'Hello', name = 'There') => `${greeting} ${name}`;
 console.log(greet('Hi'));
 
+//ES6 DESTRUCTURING--------------------------------------------------------------------------------
+  //ES5
+
+  var john = ['John', 26];
+
+// var name = john[0];
+// var age = john[1];
+
+//ES6
+
+const [name, age] = ['john', 26];
+
+//deconstructing objects into variables
+const obj = {
+    firstName: 'Harry',
+    lastName: 'Penfold'
+};
+
+
+const {firstName, lastName} = obj;
+console.log(firstName);
+console.log(lastName);
+
+const {firstName: a, lastName: b} = obj;
+console.log(a);
+console.log(b);
+
+//example of destructuring an array within a function--------------------------------------------
+
+const [name, age] = ['Harry', 31];
+
+function calcRetirementAge (year) {
+  new Date().getFullYear() - year;
+  return [age, 65 - age];
+}
+
+const [age2, retirement] = 
+calcRetirementAge(1989);
+
+console.log(age2);
+console.log(retirement);
+
 // ES6 CLASSES--------------------------------------------------------------------------------------
 class Person {
   constructor(firstName, lastName, dob) {
@@ -905,3 +947,428 @@ let getRandomNumber = function(start, range) {
 
 
 console.log(getRandomNumber(1, 1000));
+
+
+//More ES6 changes-----------------------------------------------------------------------
+
+ //ES5
+
+ var box5 = {
+  color: 'green',
+  position: 1, 
+  clickMe: function () {
+      var self = this;
+      document.querySelector('.green').addEventListener('click', function() {
+          var str = 'This is box number ' + self.position + ' and it is ' + self.color;
+          alert(str);
+      });
+  }
+}
+
+box5.clickMe();
+
+//ES6
+
+var box6 = {
+  color: 'green',
+  position: 1, 
+  clickMe: function () {
+
+      document.querySelector('.green').addEventListener('click', () => {
+          var str = `This is box number ${this.position} and it is ${this.color}`;
+          alert(str);
+      });
+  }
+}
+
+box6.clickMe();
+
+//ES5
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.myFriends5 = 
+function(friends) {
+
+  let arr = friends.map(function(el) {
+      return this.name + ' is friends with ' + el
+  }
+  
+  .bind(this));
+
+  console.log(arr);
+}
+
+let friends = ['Bob', 'John', 'Mark'];
+new Person('John').myFriends5(friends);
+
+
+//ES6 
+
+let friends = ['Bob', 'John', 'Mark'];
+
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.myFriends5 = 
+function(friends) {
+
+  let arr = friends.map(el => 
+     `${this.name} is friends with ${el}`);
+
+  console.log(arr);
+}
+
+new Person('Mike').myFriends5(friends);
+
+ES5
+var john = ['John', 26];
+
+var name = john[0];
+var age = john[1];
+
+ES6
+
+const [name, age] = ['Harry', 31];
+
+const obj = {
+  firstName: 'Harry',
+  lastName: 'Penfold'
+};
+
+//deconstructing objects into variables
+const {firstName, lastName} = obj;
+console.log(firstName);
+console.log(lastName);
+
+const {firstName: a, lastName: b} = obj;
+console.log(a);
+console.log(b);
+
+function calcRetirementAge (year) {
+  new Date().getFullYear() - year;
+  return [age, 65 - age];
+}
+
+const [age2, retirement] = 
+calcRetirementAge(1989);
+
+console.log(age2);
+console.log(retirement);
+
+
+
+//ES6 arrays
+
+const boxes = document.querySelectorAll('.box');
+
+//ES5
+// queryselectorAll returns a node list you convert that to an array as seen below.
+var boxesArr5 = Array.prototype.slice.call(boxes);
+
+  boxesArr5.forEach(function (cur) {
+      cur.style.backgroundColor = 'dodgerblue';
+      
+  });
+
+//loops
+
+//ES6
+//ES6 you can now convert to array using array.from like this:
+const boxesArr6 = Array.from(boxes);
+Array.from(boxes).forEach(cur => cur.style.backgroundColor = 'dodgerblue');
+
+//ES5
+//if the loop goes over the classname of 'box blue' contunue past it. changing the first and last boxes top 'I changed colour to blue';
+//if you type in break instead of continue the loop stops there.
+
+for(var i =0; i < boxesArr5.length; i++){
+  if(boxesArr5[i].className === 'box blue' ){
+      continue;
+  }
+  boxesArr5[i].textContent = 'I changed to blue!';
+}
+
+//ES6
+
+for(const cur of boxesArr6) {
+  if(cur.className.includes('blue')) {
+      continue;
+  }
+  cur.textContent = 'I changed to blue!';
+}
+
+
+//ES5
+
+var ages = [12, 17, 8, 21, 14, 11];
+
+var full = ages.map(function(cur) {
+  return cur >= 18;
+});
+
+console.log(full);
+console.log(ages[full.indexOf(true)]);
+
+//ES6
+//will return the 3rd age which is 21.
+ages.findIndex(cur => cur >= 18);
+
+//to display 21 you can write: 
+console.log(ages.find(cur => cur >+ 18));
+
+// Spread operator----------------------------------------------------
+//ES5
+
+function addFourAges(a, b, c, d) {
+  return a + b + c + d;
+}
+
+// var sum1 = addFourAges(18, 30, 12, 21);
+
+// console.log(sum1);
+
+
+var ages = [18, 30, 12, 21];
+//like bind and call, apply requires 2 parametres the this variable and (which isnt applicable here) and the variable to apply the addFourAges function too.
+var sum2 = addFourAges.apply(null, ages);
+
+//ES6
+//this can be written using the spread operator in es6, spread looks into the ages array.
+const max3 = addFourAges(...ages);
+
+//The spread operator can also be used to join two arrays together for example: 
+
+const smithFamily = ['John', 'jane', 'mark'];
+const garciaFamily = ['bill', 'jess', 'phil'];
+
+const bigfamily =[...smithFamily, garciaFamily];
+console.log(bigfamily);
+
+//it can also be used in dom minipulation:
+
+const h = document.querySelector('h1');
+const alldamnboxes = document.querySelectorAll('.box');
+
+allPurple = [h, ...alldamnboxes];
+
+Array.from(allPurple).forEach(cur => cur.style.color = 'purple');
+
+
+//FUNCTION PARAMETRES
+
+//REST permametres transform arguements into into an array. The spread operator similarly transforms multiple bits of data into an array.
+//arguements variable is used when then is an un numbered amount of arguements.
+// the function would return an object with data in, rather than an array which is what we want so in es5 an array was created by splitting up the object.
+//ES5
+
+function isFullAge5() {
+  //console.log(arguements);
+  var argsArr = Array.prototype.slice.call(arguments);
+
+  argsArr.forEach(function(cur) {
+  console.log((2016 - cur) >= 18);
+  })
+}
+
+isFullAge5(1990, 1999, 1965, 2016, 1987);
+
+
+//ES6
+
+function isFullAge6(...years) { //creates an array called years with the arguements in.
+  years.forEach(cur => console.log((2016 - cur) >= 18));
+}
+
+isFullAge6(1990, 1999, 1965, 2016, 1987);
+
+
+//DEFAULT PARAMETRES-----------------------------------------
+
+
+//ES5
+function smithPerson(firstName,yearOfBirth, lastName, nationality) {
+
+  lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+  nationality == undefined ? nationality = 'British' : nationality = nationality;
+  
+  this.firstName = firstName;
+  this.yearOfBirth = yearOfBirth;
+  this.lastName = lastName;
+  this.nationality = nationality;
+}
+
+var john = new smithPerson('John', 1990,);
+var emily = new smithPerson('Emily', 1983, 'Diaz', 'Spanish');
+
+
+
+//ES6 - will apply lastName as smith and nationality british as default, but will apply something different if specified.
+function smithPerson(firstName,yearOfBirth, lastName = 'smith', nationality = 'British') {
+
+  this.firstName = firstName;
+  this.yearOfBirth = yearOfBirth;
+  this.lastName = lastName;
+  this.nationality = nationality;
+}
+
+var john = new smithPerson('John', 1990,);
+var emily = new smithPerson('Emily', 1983, 'Diaz', 'Spanish');
+
+
+//maps-------------------------------------
+//maps are similar to objects as they store a key value pair but maps are more useful in certain situations.
+
+
+const question = new Map();
+question.set('question', 'What is the colour of the sky?');
+question.set(1, 'Blue');
+question.set(2, 'Green');
+question.set(3, 'red');
+question.set(4, 'Yellow');
+question.set('correct', 1);
+question.set(true, 'Correct answer :D');
+question.set(false, 'Wrong, please try again!');
+//question.delete(2);
+//question.clear() will delete everything.
+
+
+console.log(question.get('question'));
+// //console.log(question.size);
+
+// if(question.has(4)) {
+//     //  console.log(question.get(2))
+//     // returns 'red'
+//     }
+
+
+// //will return 'What is the colour of the sky'.
+// //will return the how many things are set in this example 7.
+// //question.delete removes a key value pair in this case the key value pair with the key labled as 2.
+// //question.has checks if a key value pair exuists in this case.
+// //question.clear() will delete everything.
+
+// // question.forEach((value, key) => 
+// // console.log(`this is a ${key}, and it's set to ${value}`);
+
+// //You can also iterate through maps as seen below:
+for (let [key, value] of question.entries()) {
+    if (typeof(key) === 'number') {
+        console.log(`Answer ${key}: ${value}`);
+    }
+}
+
+const ans = parseInt(prompt('Write the correct answer'));
+console.log(question.get(ans === question.get('correct'))); 
+
+//CLASSES----------------------------------------------------------------------------------------
+
+//constructors an easy way of setting the blueprints for lots of different functions. You can write the constructor and functions inside of a class.
+//in the example below you can see the syntax has been dramatically cut down, but still performs the same action. This is known as 'syntactic sugar'.
+
+//ES5
+
+var Person5 = function(name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+}
+
+Person5.prototype.calculateAge = function() {
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+}
+
+var john5 = new Person5('John', 1990, 'teacher');
+
+
+//ES6
+// static methods are methods which are in but not part of person6
+//you can only put methods inside classes, you can put props in them like you would an object.
+
+class Person6 {
+    constructor (name, yearOfBirth, job)
+    {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job; 
+    }
+    calculateAge() {
+        var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+    }
+    
+    static greeting() {
+        console.log('Hey there!')
+    }
+}
+
+const john6 = new Person6('John', 1990, 'teacher');
+
+
+//ES5
+//classes and subclasses.
+//There are subclasses and super classes. The super classes are the original constructors and the sub classes are the ones which have been added too.
+
+var Person5 = function(name, yearOfBirth, job) {
+  this.name = name;
+  this.yearOfBirth = yearOfBirth;
+  this.job = job;
+}
+
+Person5.prototype.calculateAge = function() {
+  var age = new Date().getFullYear() - this.yearOfBirth;
+  console.log(age);
+}
+
+var Athlete5 = function(name, yearOfBirth, job, olymicGames, medals) {
+  Person5.call(this, name, yearOfBirth, job);
+  this.olymicGames = olymicGames;
+  this.medals = medals;
+}
+
+Athlete5.prototype = Object.create(Person5.prototype);
+
+
+Athlete5.prototype.wonMedal = function() {
+  this.medals++;
+  console.log(this.medals);
+}
+
+
+var johnAthlete5 = new Athlete5('John', 1990, 'swimmer', 3, 10);
+
+//ES6
+//in es6 you can reference super classes with the word super, remebering to extend the class.
+//methods (functions) are also displayed as functionName() {}, no nee to set it as a prototype.
+
+
+class Person6 {
+  constructor (name, yearOfBirth, job)
+  {
+  this.name = name;
+  this.yearOfBirth = yearOfBirth;
+  this.job = job; 
+  }
+  calculateAge() {
+      var age = new Date().getFullYear() - this.yearOfBirth;
+  console.log(age);
+  }
+}
+
+class Athlete6 extends Person6 {
+  constructor(name, yearOfBirth, job, olymicGames, medals) {
+      super(name, yearOfBirth, job);//connects to Person6 constructor and adds olympicGames and medals.
+      this.olymicGames = olymicGames;
+      this.medals = medals;
+  }
+
+wonMedal() {
+  this.medals++;
+  console.log(this.medals);
+  }
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
