@@ -549,6 +549,7 @@ function onSubmit(e) {
   }
 }
 //OBJECTS---------------------------------------------------------------------------------------------------
+
 // Object Literals----------------------------
 
 //PROPERTIES - are the key in the key value pair e.g hair: 'green', hair is the property.
@@ -784,30 +785,24 @@ The engine executes the function whose execution context is at the top of the st
      - In local scope which is inside functions and executables, information cant be accessed outside of it. E.g you cant reference a letiable inside of local scope in global, but you can obviously call functions.
 
 // HOISTING----------------------------------------------------
-
 Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution. 
 Inevitably, this means that no matter where functions and variables are declared, they are moved to the top of their scope regardless of 
 whether their scope is global or local.
 
 // CLOSURES----------------------------------------------------
-
 A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, 
 a closure gives you access to an outer function’s scope from an inner function. In JavaScript, closures are created every time a function is created, at function 
 creation time. To use a closure, define a function inside another function and expose it. To expose a function, return it or pass it to another function.
 The inner function will have access to the variables in the outer function scope, even after the outer function has returned.
 
 // BUBBLING----------------------------------------------------
-
 When you an event on a parent element, all of of the children and sibling elements do the same thing unless instructed differently. This is known as bubbling.
 
 //THIS. keyword------------------------------------------------
-
 this keyword refers to an object, that object which is executing the current bit of javascript code. In other words, every javascript function while executing has 
 a reference to its current execution context, called this. Execution context means here is how the function is called. To understand this keyword, only we need to know how, 
 when and from where the function is called, does not matter how and where function is declared or defined.
-
 In essence it reflects what context it is used in. In the example below the this keyword is used to pick the age key/ value pair.
-
 const person = {
   firstName: 'John',
   lastName: 'Doe',
@@ -816,9 +811,7 @@ const person = {
     return 2020 - this.age;
   }
 };
-
 You can even borrow the method from one object and use it on another like this: person.newage = anotherObject.newage.
-
 */
 
 //Quiz console app
@@ -899,11 +892,8 @@ let controller = (function() {
 
 //Splitting your modules into different parts of the application, as in different modules to control different parts of the program is called seporation of concerns.
 /*---------------------------------------------------------------------------------------------------------------------------
-
-
   //---Building a basic toggle navigation in javascript
   //-- This is just one method of doing it.
-
   /*css foe nav bar
   width: 20px; 
   height: 20px; 
@@ -949,9 +939,10 @@ let getRandomNumber = function(start, range) {
 console.log(getRandomNumber(1, 1000));
 
 
-//More ES6 changes-----------------------------------------------------------------------
+//MORE ES6 CHANGES-----------------------------------------------------------------------
 
  //ES5
+//Arrow functions eliminate the need to declare a variable which declares which context its in.
 
  var box5 = {
   color: 'green',
@@ -1029,7 +1020,7 @@ var john = ['John', 26];
 var name = john[0];
 var age = john[1];
 
-ES6
+//ES6
 
 const [name, age] = ['Harry', 31];
 
@@ -1372,3 +1363,24 @@ wonMedal() {
 }
 
 const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+
+//API calls------------------------------------------------------------------------------------------------
+
+//it used to be the case that when calling an API you would need to fetch the API, .then turn the promise (the responce of the API call) into a json file, .then console log or do what you wnat with the request.
+//Now you can create a function labled with 'async', put the responses into variables with await and then console log o0r do what you want with the response.
+
+// const fetchData = () => {
+//   fetch('https://api.github.com').then(resp => {
+//     resp.json().then(data => {
+//       console.log(data);
+//     });
+//   });
+// };
+
+const fetchData = async () => {
+  const resp = await fetch('https://api.github.com');
+  const data = await resp.json();
+  console.log(data);
+};
+
+fetchData();
