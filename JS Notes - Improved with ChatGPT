@@ -1,0 +1,821 @@
+//CODE EXAMPLES--------------Codes may not run, they are for display purposes.
+
+// LOGGING OUTPUT
+alert('Hello World'); // Do not use for debugging. Stops script and only strings
+console.log('Hello World');
+console.error('This is an error');
+console.warn('This is a warning');
+
+
+// VARIABLES - var, let, const-------------------------------------------------------------------------------------
+let age = 30;
+
+// let can be re-assigned, const can not
+age = 31;
+
+//also both let and const are used in block scope, meaning they are only accessible inside their functions. Var has access to variables in and out of functions.
+//Const are constants meaning the data inside them cant be changed, only reasigned.
+
+const i = 1;
+i = 2 // will return error. 
+const i = 2 // will be reassigned to 2.
+
+/*Try and use const as your primary means of naming variables. It make your code more secure and robust. 
+Dont use let unless you know the variable is going to change its value*/
+
+// DATA TYPES - String, Number, Boolean, symbol, null, undefined----------------------------------------------------------
+
+const name = 'Brad';
+const age = 37;
+const rating = 3.5;
+const isCool = true;
+const x = null;
+const y = undefined;
+let z; // undefined
+
+// Check type
+console.log(typeof z); // (undefined)
+
+
+// STRINGS-----------------------------------------------------------------------------------------------------
+
+// Concatenation(ES5 and older)
+console.log('My name is ' + name + ' and I am ' + age);
+// Template literal (ES6 plus)
+console.log(`My name is ${name} and I am ${age}`);
+
+// String methods & properties
+const s = 'Hello World';
+let val;
+// Get length
+val = s.length;
+// Change case
+val = s.toUpperCase();
+val = s.toLowerCase();
+// Get sub string
+val = s.substring(0, 5);
+// Split into array
+val = s.split('');
+//tests if a string starts with a particuluar letter, ends with does the same thing to the last letter.
+val = s.startsWith('t');
+val = s.endsWith
+//tests if string has a space.
+val = s.includes(' ');
+
+
+// ARRAYS - Store multiple values in a variable---------------------------------------------------------------
+const numbers = [1,2,3,4,5];
+const fruits = ['apples', 'oranges', 'pears', 'grapes'];
+console.log(numbers, fruit);
+
+// Get one value - Arrays start at 0
+console.log(fruits[1]);
+
+// Add value
+fruits[4] = 'blueberries';
+
+// Add value using push()
+fruits.push('strawberries');
+
+// Add to beginning
+fruits.unshift('mangos');
+
+// Remove last value
+fruits.pop();
+
+//Remove first value 
+fruits.shift('Jack fruit');
+
+// // Check if array
+console.log(Array.isArray(fruits));
+
+// // Get index
+console.log(fruits.indexOf('oranges'));
+
+
+// LOOPS--------------------------------------------------------------------------------------------------
+
+// For
+for(let i = 0; i <= 10; i++){
+  console.log(`For Loop Number: ${i}`);
+}
+
+
+for(let i = 0; i <= 10; i++){
+  console.log(i);
+}
+//----------------------Looping through objects keys--------------------------------------------------------
+
+let person1 = {
+  name: 'Mark Johnson',
+  height: 1.63, 
+  weight: 90,
+  bmiMark: function(){
+      this.bmiMark = this.weight / (this.height * this.height); 
+  }
+}
+
+let keys = Object.keys(person1); 
+
+for (let i = 0; i < keys; i++) {
+console.log(keys[i])
+};
+
+//looping through object only counting certain types of data (in this case a string)-------------------------------------------------
+
+const fruits = ['apples', 3 , 'oranges', 'pears', 2 , 'grapes'];
+
+for (let i = 0; i < fruits.length; i++){
+  if (typeof fruits[i] !== 'string') continue; //if your if startement is asking one query you can miss out the curly brackets.
+
+console.log(fruits[i]);
+}
+
+//Reads through array until another datatype comes up.-------------------------------------------------
+
+const fruits = [1 , 2 , 3, 'pears', 4 , 5];
+
+for (let i = 0; i < fruits.length; i++){
+  if (typeof fruits[i] !== 'number') break;
+
+console.log(fruits[i]);
+}
+
+//read through an array backwards------------------------------------------------------------------------
+
+const fruits = [ 1, 2, 3, 4, 5];
+
+for (let i = fruits.length -1; i >= 0; i--) {
+
+console.log(fruits[i]);
+}
+
+//-------------------------------------------------------------------------------------------------------
+
+// While
+let i = 0;
+while(i <= 10) {
+  console.log(i);
+  i++;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+// Loop Through Arrays
+// For Loop
+
+for(let i = 0; i < todos.length; i++){
+  console.log(` Todo ${i + 1}: ${todos[i].text}`);
+}
+
+for(let i = 0; i < todos.length; i++){
+  console.log(Todo[i]);
+}
+
+
+//-----------------------------------------------------------------------------------------------------------
+// For...of Loop
+for(let todo of todos) {
+  console.log(todo.text);
+}
+
+
+// HIGH ORDER ARRAY METHODS (show prototype)------------------------------------------------------------
+
+// forEach() - Loops through array
+todos.forEach(function(todo, i, myTodos) {
+  console.log(`${i + 1}: ${todo.text}`);
+  console.log(myTodos);
+});
+
+// map() - Loop through and create new array
+const todoTextArray = todos.map(function(todo) {
+  return todo.text;
+});
+
+console.log(todoTextArray);
+
+// filter() - Returns array based on condition
+const todo1 = todos.filter(function(todo) {
+  // Return only todos where id is 1
+  return todo.id === 1; 
+});
+
+
+// CONDITIONALS--------------------------------------------------------------------------------------------
+// Simple If/Else Statement
+const x = 30;
+
+if (x === 10) {
+  console.log('x is 10');
+} else if (x > 10) {
+  console.log('x is greater than 10');
+} else {
+  console.log('x is less than 10');
+}
+
+// Switch Statement
+let color = 'blue';
+
+switch (color) {
+  case 'red':
+    console.log('color is red');
+    break;
+  case 'blue':
+    console.log('color is blue');
+    break;
+  default:
+    console.log('color is not red or blue');
+}
+
+// Ternary operator / Shorthand if statement
+const z = color === 'red' ? 10 : 20;
+
+// FUNCTIONS
+// Function Declaration
+function greet(greeting = 'Hello', name) {
+  if (!name) {
+    console.log(greeting);
+    return greeting;
+  } else {
+    console.log(`${greeting} ${name}`);
+    return `${greeting} ${name}`;
+  }
+}
+
+// Function Expression
+const profession = function(firstName, job) {
+  switch (job) {
+    case 'electrician':
+      return `${firstName} is an electrician`;
+    case 'salesman':
+      return `${firstName} is a salesman`;
+    case 'developer':
+      return `${firstName} is a developer`;
+    default:
+      return `${firstName} does something else`;
+  }
+};
+
+console.log(profession('Andy', 'electrician'));
+console.log(profession('Jim', 'salesman'));
+console.log(profession('Harry', 'developer'));
+console.log(profession('Craig'));
+
+// Function Declaration - Function inside a function
+function calculateAge(birthYear) {
+  return 2020 - birthYear;
+}
+
+function yearsUntilRetirement(year, firstName) {
+  const age = calculateAge(year);
+  const retirement = 65 - age;
+  if (retirement > 0) {
+    console.log(`${firstName} retires in ${retirement} years.`);
+  } else {
+    console.log(`${firstName} is already retired.`);
+  }
+}
+
+yearsUntilRetirement(1989, 'Harry');
+yearsUntilRetirement(1932, 'James');
+yearsUntilRetirement(1999, 'Jeff');
+
+// Function Returning Function
+function interviewQuestion(job) {
+  return function(name) {
+    if (job === 'designer') {
+      console.log(`${name}, can you please explain what UX design is?`);
+    } else if (job === 'teacher') {
+      console.log(`${name}, what subject do you teach?`);
+    } else {
+      console.log(`Hello ${name}, what do you do?`);
+    }
+  };
+}
+
+const teacherQuestion = interviewQuestion('teacher');
+teacherQuestion('John');
+
+// IIFE - Immediately Invoked Function Expression
+(function() {
+  const score = Math.random() * 10;
+  console.log(score >= 5);
+})();
+
+// Closures
+function retirement(retirementAge) {
+  const a = ' years until retirement.';
+  return function(yearOfBirth) {
+    const age = new Date().getFullYear() - yearOfBirth;
+    console.log(`${retirementAge - age}${a}`);
+  };
+}
+
+retirement(65)(1989);
+
+// ARROW FUNCTIONS
+const greet = (greeting = 'Hello', name = 'There') => `${greeting} ${name}`;
+console.log(greet('Hi'));
+
+// ES6 DESTRUCTURING
+const [name, age] = ['John', 26];
+const obj = {
+  firstName: 'Harry',
+  lastName: 'Penfold'
+};
+const {firstName: a, lastName: b} = obj;
+
+// ES6 CLASSES
+class Person {
+  constructor(firstName, lastName, dob) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.dob = new Date(dob);
+  }
+
+  getBirthYear() {
+    return this.dob.getFullYear();
+  }
+
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+const person1 = new Person('John', 'Doe', '7-8-80');
+console.log(person1.getBirthYear());
+
+// ELEMENT SELECTORS & MANIPULATING THE DOM
+console.log(document.getElementById('my-form'));
+console.log(document.querySelector('.container'));
+
+const items = document.querySelectorAll('.item');
+items.forEach(item => console.log(item));
+
+const ul = document.querySelector('.items');
+ul.firstElementChild.textContent = 'Hello';
+ul.children[1].innerText = 'Brad';
+ul.lastElementChild.innerHTML = '<h1>Hello</h1>';
+
+const btn = document.querySelector('.btn');
+// btn.style.background = 'red';
+
+// EVENTS--------------------------------------------------------------------------------------------------
+// Mouse Event
+btn.addEventListener('click', e => {
+    e.preventDefault();
+    console.log(e.target.className);
+    document.getElementById('my-form').style.background = '#ccc';
+    document.querySelector('body').classList.add('bg-dark');
+    ul.lastElementChild.innerHTML = '<h1>Changed</h1>';
+  });
+  
+  // Keyboard Event
+  const nameInput = document.querySelector('#name');
+  nameInput.addEventListener('input', e => {
+    document.querySelector('.container').append(nameInput.value);
+  });
+  
+  // USER FORM SCRIPT
+  const myForm = document.querySelector('#my-form');
+  const nameInput = document.querySelector('#name');
+  const emailInput = document.querySelector('#email');
+  const msg = document.querySelector('.msg');
+  const userList = document.querySelector('#users');
+  
+  myForm.addEventListener('submit', onSubmit);
+  
+  function onSubmit(e) {
+    e.preventDefault();
+    
+    if (nameInput.value === '' || emailInput.value === '') {
+      msg.classList.add('error');
+      msg.innerHTML = 'Please enter all fields';
+      setTimeout(() => msg.remove(), 3000);
+    } else {
+      const li = document.createElement('li');
+      li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
+      userList.appendChild(li);
+      nameInput.value = '';
+      emailInput.value = '';
+    }
+  }
+  
+  // OBJECTS----------------------------------------------------------------------------------------------
+  // Object Literals
+  const person = {
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 30,
+    hobbies: ['music', 'movies', 'sports'],
+    address: {
+      street: '50 Main St',
+      city: 'Boston',
+      state: 'MA'
+    }
+  };
+  
+  // Accessing object properties
+  console.log(person.firstName);
+  console.log(person.hobbies[1]);
+  console.log(person.address.city);
+  
+  // Adding a property
+  person.email = 'jdoe@gmail.com';
+  
+  // Array of objects
+  const todos = [
+    {
+      id: 1,
+      text: 'Take out trash',
+      isComplete: false
+    },
+    {
+      id: 2,
+      text: 'Dinner with wife',
+      isComplete: false
+    },
+    {
+      id: 3,
+      text: 'Meeting with boss',
+      isComplete: true
+    }
+  ];
+  
+  console.log(todos[1].text);
+  console.log(JSON.stringify(todos));
+  
+  // METHODS------------------------------------------------------------------------------------------------------------------------
+  // Adding a method to an object
+  const person = {
+    firstName: 'John',
+    lastName: 'Doe',
+    birthYear: 1990,
+    calculateAge: function() {
+      return 2020 - this.birthYear;
+    }
+  };
+  
+  console.log(person.calculateAge());
+  
+  // Using the 'this' keyword
+  const person = {
+    firstName: 'John',
+    lastName: 'Doe',
+    birthYear: 1990,
+    calculateAge: function() {
+      return 2020 - this.birthYear;
+    }
+  };
+  
+  console.log(person.calculateAge());
+  
+  // Creating a new property with 'this'
+  const person = {
+    firstName: 'John',
+    lastName: 'Doe',
+    birthYear: 1990,
+    calculateAge: function() {
+      this.age = 2020 - this.birthYear;
+    }
+  };
+  
+  person.calculateAge();
+  console.log(person);
+  
+  // CALL, BIND, AND APPLY
+  // Using call
+  john.presentation.call(emily, 'friendly', 'good morning');
+  
+  // Using bind
+  let johnFriendly = john.presentation.bind(john, 'friendly');
+  johnFriendly('morning');
+  
+  // PROTOTYPES AND CONSTRUCTOR FUNCTIONS
+  // Constructor Function
+  function Person(name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+  }
+  
+  // Adding a method using prototype
+  Person.prototype.calculateAge = function() {
+    console.log(2020 - this.yearOfBirth);
+  };
+  
+  let john = new Person('John', 1990, 'teacher');
+  let jane = new Person('Jane', 1969, 'designer');
+  
+  john.calculateAge();
+  jane.calculateAge();
+  
+  // Adding a property using prototype
+  Person.prototype.lastName = 'Smith';
+  
+  // Using Object.create
+  let personProto = {
+    calculateAge: function() {
+      console.log(2020 - this.yearOfBirth);
+    }
+  };
+  
+  let john = Object.create(personProto);
+  john.name = 'John';
+  john.yearOfBirth = 1990;
+  john.job = 'teacher';
+  
+  let jane = Object.create(personProto, {
+    name: { value: 'Jane' },
+    yearOfBirth: { value: 1969 },
+    job: { value: 'designer' }
+  });
+
+  //EXECUTION CONTEXT
+  /*Description: Execution context is an abstract concept in JavaScript that represents the environment in which code is evaluated and executed. It includes information such as variable scope, function declarations, and the value of the this keyword.
+  Types of Execution Context:
+  Global Execution Context: The default execution context where code not inside any function resides. It sets up a global object (e.g., window in browsers) and this points to the global object.
+  Functional Execution Context: Created whenever a function is invoked. Each function call creates its own execution context with its own scope chain.
+  Eval Function Execution Context: Created when code is executed inside an eval function, though its use is discouraged due to security and performance concerns.*/
+  
+  //SCOPE
+  /*Description: Scope determines the accessibility of variables and functions in JavaScript. It dictates where in the code you can access a particular variable or function.
+  Global Scope vs. Local Scope:
+  Global Scope: Variables declared outside of any function are in the global scope and can be accessed from anywhere in the code.
+  Local Scope: Variables declared inside a function are in the local scope and can only be accessed within that function.*/
+  
+  //HOISTING
+  /*Description: Hoisting is a JavaScript mechanism where variable and function declarations are moved to the top of their containing scope during the compilation phase, regardless of where they are declared in the code.
+  Behavior: Function declarations are hoisted entirely, while variable declarations are hoisted but not their assignments.*/
+ 
+  //BUBBLING
+ /*"Bubbling" in event propagation refers to the process where events on child elements trigger event listeners on parent elements, as the events bubble up through the DOM hierarchy from the target element to its ancestors.*/
+
+  //CLOSURES
+  /*Description: Closures refer to the combination of a function and its lexical environment, which allows the function to access variables from its outer scope even after the outer function has finished executing.
+  Behavior: Inner functions have access to the variables and parameters of their outer functions, even after the outer function has returned.*/
+  
+  //THIS Keyword
+  /*Description: The this keyword in JavaScript refers to the object that is executing the current code. Its value depends on how a function is called.
+  Behavior: In regular functions, this typically refers to the global object (window in browsers), but in methods, it refers to the object that owns the method. It can also be explicitly set using call(), apply(), or bind().*/
+
+// Quiz console app
+(function() {
+    function Question(question, answers, correct) {
+      this.question = question;
+      this.answers = answers;
+      this.correct = correct;
+    }
+  
+    Question.prototype.displayQuestion = function() {
+      console.log(this.question);
+  
+      for (let i = 0; i < this.answers.length; i++) {
+        console.log(i + ': ' + this.answers[i]);
+      }
+    }
+  
+    Question.prototype.checkAnswer = function(ans) {
+      if (ans === this.correct) {
+        console.log('Correct!');
+      } else {
+        console.log('Incorrect, try again');
+      }
+    }
+  
+    let q1 = new Question('Is JavaScript the coolest programming language in the world?', ['Yes', 'No'], 0);
+    let q2 = new Question('What is the name of the course\'s teacher?', ['Mike', 'Jonas'], 1);
+    let q3 = new Question('Who is the person learning JavaScript?', ['Dave', 'Harry', 'John'], 1);
+  
+    let questions = [q1, q2, q3];
+  
+    let n = Math.floor(Math.random() * questions.length);
+  
+    questions[n].displayQuestion();
+  
+    let answer = parseInt(prompt('Please select the correct answer.'));
+  
+    questions[n].checkAnswer(answer);
+  })();
+  
+  // MODULATION-------------------------------------------------------------------------------------------------------------------------------------------
+  // Modules enable organizing code into smaller, manageable parts
+  // Example of module pattern using IIFE (Immediately Invoked Function Expression)
+  let budgetController = (function() {
+    let x = 23;
+  
+    let add = function(a) {
+      return x + a;
+    }
+  
+    return {
+      publicTest: function(b) {
+        console.log(add(b));
+      }
+    }
+  })();
+  
+  budgetController.publicTest(7);
+  
+  let UIController = (function() {
+    // Module code for UI operations
+  })();
+  
+  let controller = (function() {
+    // Module code for controlling application logic
+  })(); 
+
+
+  // Building a basic toggle navigation in JavaScript
+// CSS for nav bar...
+// JavaScript code below
+
+var toggleStatus = 1;
+function toggleMenu() {
+  if (toggleStatus == 1) {
+    document.getElementById('menu').style.left = "-240px";
+    toggleStatus = 0;
+  } else if (toggleStatus == 0) {
+    document.getElementById('menu').style.left = "0px";
+    toggleStatus = 1;
+  }
+}
+
+// Generating random numbers in JavaScript
+
+let getRandomNumber = function(start, range) {
+  let getRandom = Math.floor((Math.random() * range) + start);
+  while (getRandom > range) {
+    getRandom = Math.floor((Math.random() * range) + start)
+  }
+  return getRandom;
+}
+
+console.log(getRandomNumber(1, 1000));
+
+
+// MORE ES6 CHANGES------------------------------------------------------------------------------------------------
+
+// Arrow Functions
+
+var box6 = {
+  color: 'green',
+  position: 1,
+  clickMe: function() {
+    document.querySelector('.green').addEventListener('click', () => {
+      var str = `This is box number ${this.position} and it is ${this.color}`;
+      alert(str);
+    });
+  }
+}
+
+box6.clickMe();
+
+// Template Literals
+
+let friends = ['Bob', 'John', 'Mark'];
+
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.myFriends5 =
+  function(friends) {
+    let arr = friends.map(el =>
+      `${this.name} is friends with ${el}`);
+    console.log(arr);
+  }
+
+new Person('Mike').myFriends5(friends);
+
+// Destructuring
+
+const [name, age] = ['Harry', 31];
+
+const obj = {
+  firstName: 'Harry',
+  lastName: 'Penfold'
+};
+
+const { firstName, lastName } = obj;
+console.log(firstName);
+console.log(lastName);
+
+// Rest Parameters
+
+function calcRetirementAge(year) {
+  return [new Date().getFullYear() - year, 65 - (new Date().getFullYear() - year)];
+}
+
+const [age2, retirement] = calcRetirementAge(1989);
+console.log(age2);
+console.log(retirement);
+
+// Spread Operator
+
+const smithFamily = ['John', 'Jane', 'Mark'];
+const garciaFamily = ['Bill', 'Jess', 'Phil'];
+
+const bigFamily = [...smithFamily, ...garciaFamily];
+console.log(bigFamily);
+
+// Function Parameters (Rest Parameters and Default Parameters)
+
+function isFullAge6(...years) {
+  years.forEach(cur => console.log((2016 - cur) >= 18));
+}
+
+isFullAge6(1990, 1999, 1965, 2016, 1987);
+
+// Default Parameters
+
+function smithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = 'British') {
+  this.firstName = firstName;
+  this.yearOfBirth = yearOfBirth;
+  this.lastName = lastName;
+  this.nationality = nationality;
+}
+
+var john = new smithPerson('John', 1990);
+var emily = new smithPerson('Emily', 1983, 'Diaz', 'Spanish');
+
+// Default Parameters in ES6
+
+function smithPerson(firstName, yearOfBirth, lastName = 'smith', nationality = 'British') {
+    this.firstName = firstName;
+    this.yearOfBirth = yearOfBirth;
+    this.lastName = lastName;
+    this.nationality = nationality;
+  }
+  
+  var john = new smithPerson('John', 1990);
+  var emily = new smithPerson('Emily', 1983, 'Diaz', 'Spanish');
+  
+  // Maps
+  
+  const question = new Map();
+  question.set('question', 'What is the color of the sky?');
+  question.set(1, 'Blue');
+  question.set(2, 'Green');
+  question.set(3, 'Red');
+  question.set(4, 'Yellow');
+  question.set('correct', 1);
+  question.set(true, 'Correct answer :D');
+  question.set(false, 'Wrong, please try again!');
+  
+  console.log(question.get('question'));
+  
+  for (let [key, value] of question.entries()) {
+    if (typeof(key) === 'number') {
+      console.log(`Answer ${key}: ${value}`);
+    }
+  }
+  
+  const ans = parseInt(prompt('Write the correct answer'));
+  console.log(question.get(ans === question.get('correct')));
+  
+  // Classes in ES6
+  
+  class Person6 {
+    constructor (name, yearOfBirth, job) {
+      this.name = name;
+      this.yearOfBirth = yearOfBirth;
+      this.job = job; 
+    }
+    calculateAge() {
+      var age = new Date().getFullYear() - this.yearOfBirth;
+      console.log(age);
+    }
+    
+    static greeting() {
+      console.log('Hey there!')
+    }
+  }
+  
+  const john6 = new Person6('John', 1990, 'teacher');
+  
+  class Athlete6 extends Person6 {
+    constructor(name, yearOfBirth, job, olympicGames, medals) {
+      super(name, yearOfBirth, job);
+      this.olympicGames = olympicGames;
+      this.medals = medals;
+    }
+  
+    wonMedal() {
+      this.medals++;
+      console.log(this.medals);
+    }
+  }
+  
+  const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+  
+  // API Calls in ES6
+  
+  const fetchData = async () => {
+    const resp = await fetch('https://api.github.com');
+    const data = await resp.json();
+    console.log(data);
+  };
+  
+  fetchData();
+  
